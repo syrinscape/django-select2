@@ -5,7 +5,6 @@ import json
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse
-from django.utils.six import binary_type
 from django.views.generic import View
 
 from .util import get_field, is_valid_id
@@ -90,7 +89,7 @@ class Select2View(JSONResponseMixin, View):
         else:
             status = getattr(e, 'status_code', 400)
         return self.render_to_response(
-            self._results_to_context((binary_type(e), False, [],)),
+            self._results_to_context((str(e), False, [],)),
             status=status
             )
 
